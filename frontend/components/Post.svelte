@@ -47,7 +47,7 @@
             const { height } = await transfer();
             console.log("blocco convalidato:", height);
         } catch (error) {
-            console.error('Errore durante la transazione:', error);
+            console.log('Errore durante la transazione:', error);
         }   
     };
 
