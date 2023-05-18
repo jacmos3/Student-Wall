@@ -1,57 +1,42 @@
 <script>
-  import logo from "./assets/dfinity.svg"
   /*
    * Connect2ic provides essential utilities for IC app development
    */
   import { createClient } from "@connect2ic/core"
   import { defaultProviders } from "@connect2ic/core/providers"
   import { ConnectButton, ConnectDialog, Connect2ICProvider } from "@connect2ic/svelte"
+  import Wall from "./components/Wall.svelte"
   import "@connect2ic/core/style.css"
   /*
    * Import canister definitions like this:
    */
-  import * as counter from "../.dfx/local/canisters/counter"
+  import * as studentwall from "../.dfx/local/canisters/studentwall"
   /*
    * Some examples to get you started
    */
-  import Counter from "./components/Counter.svelte"
   import Profile from "./components/Profile.svelte"
-  import Transfer from "./components/Transfer.svelte"
-
+  
   const client = createClient({
     canisters: {
-      counter,
+      studentwall
     },
     providers: defaultProviders,
     globalProviderConfig: {
       dev: import.meta.env.DEV,
     },
-  })
+  });
+
 </script>
 
 <Connect2ICProvider client={client}>
   <div class="App">
+    <Wall />
     <div class="auth-section">
       <ConnectButton />
     </div>
     <ConnectDialog />
-    <header class="App-header">
-      <img src={logo} class="App-logo" alt="logo" />
-      <p class="slogan">
-        Svelte+TypeScript Template
-      </p>
-      <p class="twitter">by <a href="https://twitter.com/miamaruq">@miamaruq</a></p>
-    </header>
-
-    <p class="examples-title">
-      Examples
-    </p>
-    <div class="examples">
-      <Counter />
-      <Profile />
-      <Transfer />
-    </div>
-  </div>
+     
+    
 </Connect2ICProvider>
 
 <style global>
@@ -62,7 +47,8 @@
         sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        color: #424242;
+        color:darkred;
+        background-color:lightskyblue;
     }
 
     button {
