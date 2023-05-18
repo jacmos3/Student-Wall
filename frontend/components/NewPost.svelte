@@ -27,7 +27,7 @@
 </script>
 
 <div class="post-entry">
-    <textarea bind:value = {newPostValue} placeholder = "Free your soul, write your vent!" />
+    <textarea bind:value = {newPostValue} placeholder = "Free your soul, describe which project you are working on; Which is the issue making you crazy? Write your vent if you finally solved it... or not!" />
     <button disabled= {!newPostValue} on:click = {writeTextMessage} >
         <Fa icon={faLocationArrow} />
     </button>

@@ -1,5 +1,6 @@
 <script>
     import Post from "./Post.svelte";
+    import Profile from "./Profile.svelte";
     import NewPost from "./NewPost.svelte";
     import {onMount, onDestroy} from "svelte";
 
@@ -8,7 +9,7 @@
     const [studentwall, { loading }] = useCanister("studentwall")
 
     let allPosts;
-    
+    let myHandle;
 
     const refresh = async () => {
         console.log("refresh");
@@ -20,6 +21,7 @@
             refresh();
         }
     }
+
     onMount( async () => {
         refresh();
         //allPosts = await $studentwall.getAllMessages();
@@ -32,12 +34,11 @@
 
 
     function handleChildEvent() {
-        console.log("Evento ricevuto dal modulo figlio");
         refresh();
     }
 
 </script>
-
+<Profile myHandle = "{myHandle}" />
 <NewPost on:customEvent={handleChildEvent}/>
 
 <div class = "all-posts" >

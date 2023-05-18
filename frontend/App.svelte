@@ -5,8 +5,9 @@
   import { createClient } from "@connect2ic/core"
   import { defaultProviders } from "@connect2ic/core/providers"
   import { ConnectButton, ConnectDialog, Connect2ICProvider } from "@connect2ic/svelte"
-  import Wall from "./components/Wall.svelte"
-  import "@connect2ic/core/style.css"
+  import Wall from "./components/Wall.svelte";
+  import "@connect2ic/core/style.css";
+  import TipMe from "./components/TipMe.svelte";
   /*
    * Import canister definitions like this:
    */
@@ -32,6 +33,8 @@
   <div class="App">
     <Wall />
     <div class="auth-section">
+        
+  <TipMe />
       <ConnectButton />
     </div>
     <ConnectDialog />
@@ -80,29 +83,11 @@
         font-size: calc(10px + 2vmin);
     }
 
-    .examples {
-        padding: 30px 100px;
-        display: grid;
-        grid-gap: 30px;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .examples-title {
-        font-size: 1.3em;
-        margin-bottom: 0;
-        text-align: center;
-    }
 
     .example {
-        padding: 50px 50px;
-        min-height: 300px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        /*border: 1px solid black;*/
-        /*background: #f4f4f4;*/
-        border-radius: 15px;
     }
 
     .example-disabled {

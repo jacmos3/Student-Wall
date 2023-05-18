@@ -27,7 +27,11 @@ service : {
   downVote: (nat) -> (Result);
   getAllMessages: () -> (vec Message) query;
   getAllMessagesRanked: () -> (vec Message) query;
+  getHandle: (text) -> (opt text);
   getMessage: (nat) -> (Result_1) query;
+  getMyHandle: () -> (opt text);
+  getPrincipal: (text) -> (opt principal);
+  setHandle: (text) -> (Result);
   upVote: (nat) -> (Result);
   updateMessage: (nat, Content) -> (Result);
   updateTextMessage: (nat, text) -> (Result);

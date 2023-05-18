@@ -3,17 +3,9 @@
 	import AllPosts from "./AllPosts.svelte";
 	import TopWaves from "./TopWaves.svelte";
 	import Header from "./Header.svelte";
-	import { useWallet, useTransfer } from "@connect2ic/svelte"
+	import { useWallet } from "@connect2ic/svelte"
 	import logo from "../assets/dfinity.svg"
 	const [wallet] = useWallet()
-	const [transfer] = useTransfer({
-		to: "ujatm-5r4hr-uifzb-2e7mc-ju2le-lbg2e-bu64k-xqy7o-cvimk-2nzky-4qe",
-		amount: Number(0.01),
-	})
-
-  	const onPurchase = async () => {
-    	const { height } = await transfer();
-  	}
 
 </script>
 
@@ -31,16 +23,12 @@
 				<header class="App-header">
 					<img src={logo} class="App-logo" alt="logo" />
 					<p class="slogan">
-					  Every student Needs to vent. Do yours.
+					  Every student needs to vent. Do yours.
 					</p>
-					connect your wallet, or enter as a guest
+					connect your wallet, or type your name and enter as a guest
 				  </header>
 				{:else}
 					<AllPosts />
-
-					<p>Buy me a beer</p>
-				    <button class="connect-button" on:click={onPurchase}>Purchase</button>
-
 				{/if}
 			</main>
 		</div>

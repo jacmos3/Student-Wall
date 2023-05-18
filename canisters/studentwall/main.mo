@@ -18,6 +18,9 @@ actor StudentWall {
     };
     var messageId : Nat = 0;    
     let wall = HashMap.HashMap<Nat,Types.Message>(0, Nat.equal, hashId);
+    let handles = HashMap.HashMap<Principal, Text>(0,Principal.equal, Principal.hash);
+    let principals = HashMap.HashMap<Text, Principal>(0,Text.equal, Text.hash);
+
     var logs : Text = "";
     private func log(log: Text){
         logs := logs # " - " # log;
@@ -39,6 +42,30 @@ actor StudentWall {
 
     public shared ({caller}) func writeMessage(c : Types.Content) : async Nat{
         return _writeMessage(c, caller, "writeMessage");
+    };
+
+    private func _getHandle(caller: Principal): ?Text{
+        return handles.get(caller);
+    };
+    public shared func getHandle(caller: Text) : async ?Text{
+        return _getHandle(Principal.fromText(caller));
+    };
+
+    public shared ({caller}) func getMyHandle() : async ?Text{
+        return _getHandle(caller);
+    };
+
+    public shared func getPrincipal(handle: Text) : async ?Principal{
+        return principals.get(handle);
+    };
+
+    public shared ({caller}) func setHandle(newHandle : Text) : async Result.Result<(), Text>{
+        if (principals.get(newHandle) == null){
+            principals.put(newHandle, caller);
+            handles.put(caller, newHandle);
+            return #ok();
+        };
+        return #err("Handle already in use by someone else");
     };
 
     private func _getMessage (messageId : Nat) :  Result.Result<Types.Message, Text>{

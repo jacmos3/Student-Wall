@@ -1,21 +1,31 @@
 <script>
-    import { useCanister,useTransfer,useWallet } from "@connect2ic/svelte"
-    import Fa from 'svelte-fa/src/fa.svelte'
-    import { faThumbsUp, faThumbsDown, faTrash, faHandHoldingDollar, faPenToSquare, faLocationArrow, faRotateRight} from '@fortawesome/free-solid-svg-icons'
+    import { useCanister,useTransfer,useWallet } from "@connect2ic/svelte";
+    import Fa from 'svelte-fa/src/fa.svelte';
+    import {onMount} from "svelte";
+    import { faThumbsUp, faThumbsDown, faTrash, faHandHoldingDollar, faPenToSquare, faRotateRight} from '@fortawesome/free-solid-svg-icons'
     export let content; 
     export let creator; 
     export let vote;
     export let id;
     export let edited;
-
+    export let handle;
+    
     let transfer;
     let editing = false;
     let updatedText;
     //avoid anonym users
     let disableTips = String(creator).length < 10;
-    console.log(disableTips );
+    console.log(disableTips);
 
     const [wallet] = useWallet();
+
+    const getHandle = async () => {
+        return await $studentwall.getHandle($wallet.principal);
+    };
+    onMount( async () => {
+        handle = await getHandle(creator);
+        console.log("Component mounted, creator handle: ", handle);
+    });
 
     const sendUpdatedMessage = async () => {
         console.log("sendUpdatedMessage: ", updatedText);
@@ -24,9 +34,10 @@
         await refresh();
         editing = false;
     };
-
+    
     const onTipping = async () => {
         try {
+            console.log("trying");
             [transfer] = await useTransfer({
             to: String(creator),
             amount: Number(0.01),
@@ -79,7 +90,8 @@
 
 <div class = "post" id = "post-{id}">
     <div class="container">
-        <div class = "author">{creator}</div>
+        
+        <div class = "author">{handle? handle : creator} said:</div>
         
         {#if $wallet}
             {#if (creator != $wallet.principal)}
