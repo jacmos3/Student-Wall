@@ -47,7 +47,12 @@ actor StudentWall {
     private func _getHandle(caller: Principal): ?Text{
         return handles.get(caller);
     };
-    public shared func getHandle(caller: Text) : async ?Text{
+
+    public shared func getHandle(caller: Principal) : async ?Text{
+        return _getHandle(caller);
+    };
+
+    public shared func getHandleT(caller: Text) : async ?Text{
         return _getHandle(Principal.fromText(caller));
     };
 

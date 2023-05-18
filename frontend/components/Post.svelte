@@ -8,7 +8,7 @@
     export let vote;
     export let id;
     export let edited;
-    export let handle;
+    let handle;
     
     let transfer;
     let editing = false;
@@ -20,11 +20,13 @@
     const [wallet] = useWallet();
 
     const getHandle = async () => {
-        return await $studentwall.getHandle($wallet.principal);
+        return await $studentwall.getHandleT(String(creator));
     };
     onMount( async () => {
-        handle = await getHandle(creator);
-        console.log("Component mounted, creator handle: ", handle);
+        handle = await getHandle();
+        if (!handle.length)
+            handle = null;
+        console.log("Component mounted, creator:", String(creator), "with handle: ", handle);
     });
 
     const sendUpdatedMessage = async () => {
@@ -91,7 +93,7 @@
 <div class = "post" id = "post-{id}">
     <div class="container">
         
-        <div class = "author">{handle? handle : creator} said:</div>
+        <div class = "author">{handle ? handle : creator} said:</div>
         
         {#if $wallet}
             {#if (creator != $wallet.principal)}

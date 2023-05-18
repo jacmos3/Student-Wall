@@ -18,7 +18,7 @@
   });
   
   const getHandle = async () => {
-    return await $studentwall.getHandle($wallet.principal);
+    return await $studentwall.getHandleT($wallet.principal);
   };
 
   const setHandle = async () => {
