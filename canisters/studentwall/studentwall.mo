@@ -18,9 +18,9 @@ actor StudentWall {
     //TODO CHANGE
     let IS_DEV = true;
     //TODO CHANGE VALUES
-    let DAO_CANISTER = "be2us-64aaa-aaaaa-qaabq-cai";
+    let DAO_CANISTER = if (IS_DEV) "be2us-64aaa-aaaaa-qaabq-cai" else "ojsrx-iyaaa-aaaao-ajpaa-cai";
     //TODO CHANGE VALUES
-    let WALLCOIN_CANISTER_ID = if (IS_DEV) "be2us-64aaa-aaaaa-qaabq-cai" else "be2us-64aaa-aaaaa-qaabq-cai";
+    let WALLCOIN_CANISTER_ID = if (IS_DEV) "be2us-64aaa-aaaaa-qaabq-cai" else "ojsrx-iyaaa-aaaao-ajpaa-cai";
     
     func hashId(id : Nat) : Hash.Hash {
         Text.hash(Nat.toText(id));
@@ -217,7 +217,6 @@ actor StudentWall {
                     };
                 }
             }
-            
         };
 
         if (rollback){

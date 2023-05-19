@@ -73,42 +73,42 @@
     {/if}
     {#if !myHandle}
   
-    <div class="buttons">
-      Set your handle to claim your first 1000 WALL coins!
+      <div class="buttons">
+        Set your handle to claim your first 1000 WALL coins!
 
-      <button on:click={onEdit}>
-          <Fa icon="{faPenToSquare}" />
-      </button>
-  </div>
-  {/if}
+        <button on:click={onEdit}>
+            <Fa icon="{faPenToSquare}" />
+        </button>
+      </div>
+    {/if}
     
     <table>
       {#if $assets}
-      <p>Your wallet: {$wallet.principal}</p>
-      <tbody>
-      <tr class="bold">
-        <td>
-          WALL
-        </td>
-        <td>
-          {myBalance}
-        </td>
-      </tr>
-        {#each $assets as asset}
-          <tr>
+        <p>Your wallet: {$wallet.principal}</p>
+        <tbody>
+          <tr class="bold">
             <td>
-              {asset.name}
+              WALL
             </td>
             <td>
-              {asset.amount}
+              {myBalance}
             </td>
           </tr>
-        {/each}
-      </tbody>
+          {#each $assets as asset}
+            <tr>
+              <td>
+                {asset.name}
+              </td>
+              <td>
+                {asset.amount}
+              </td>
+            </tr>
+          {/each}
+        </tbody>
       {/if}
     </table>
   {:else}
-  <div></div>
+    <div></div>
   {/if}
 </div>
 

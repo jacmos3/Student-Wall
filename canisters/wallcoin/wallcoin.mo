@@ -11,7 +11,7 @@ actor WallCoin {
     let ledger = TrieMap.TrieMap<Account.Account, Nat>(Account.accountsEqual, Account.accountsHash);
     let tokenName = "WallCoin";
     let tokenSymbol = "WALL";
-    let airdropAmount = 1000;
+    let airdropAmount = 100;
     var circulationTotalSupply = 0;
 
     let alreadyClaimed = HashMap.HashMap<Principal,Bool>(0, Principal.equal, Principal.hash);

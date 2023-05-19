@@ -32,7 +32,7 @@
 					<p class="slogan">
 					  Every student needs to vent. Do yours.
 					</p>
-					connect your wallet, or type your name and enter as a guest
+					connect your wallet, or enter as a guest
 				  </header>
 				{:else}
 					<AllPosts />
