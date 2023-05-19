@@ -5,12 +5,19 @@
 	import Header from "./Header.svelte";
 	import { useWallet } from "@connect2ic/svelte"
 	import logo from "../assets/dfinity.svg"
-	const [wallet] = useWallet()
+	const [wallet] = useWallet();
+	import {guest} from '../Stores/Store.js' 
 
+	$:{
+	if ($wallet && $guest){
+		$guest = false;
+		console.log("guest set to false because wallet is not null");
+	};
+}
 </script>
 
 <div id="app-container" class="app-container">
-	{#if $wallet}
+	{#if $wallet || $guest}
 		<TopWaves />
 		<Header />
 	{/if}
@@ -18,7 +25,7 @@
 	<section>
 		<div class="container">
 			<main>
-				{#if !$wallet}
+				{#if !$wallet && !$guest}
 				
 				<header class="App-header">
 					<img src={logo} class="App-logo" alt="logo" />

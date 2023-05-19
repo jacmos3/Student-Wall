@@ -93,7 +93,7 @@
 <div class = "post" id = "post-{id}">
     <div class="container">
         
-        <div class = "author">{handle ? handle : creator} said:</div>
+        <div class = "author">{handle ? "@"+handle : creator} said:</div>
         
         {#if $wallet}
             {#if (creator != $wallet.principal)}

@@ -1,48 +1,48 @@
 <script>
-  /*
-   * Connect2ic provides essential utilities for IC app development
-   */
-  import { createClient } from "@connect2ic/core"
-  import { defaultProviders } from "@connect2ic/core/providers"
-  import { ConnectButton, ConnectDialog, Connect2ICProvider } from "@connect2ic/svelte"
-  import Wall from "./components/Wall.svelte";
-  import "@connect2ic/core/style.css";
-  import TipMe from "./components/TipMe.svelte";
-  /*
-   * Import canister definitions like this:
-   */
-  import * as studentwall from "../.dfx/local/canisters/studentwall"
-  /*
-   * Some examples to get you started
-   */
-  import Profile from "./components/Profile.svelte"
-  
-  const client = createClient({
-    canisters: {
-      studentwall
-    },
-    providers: defaultProviders,
-    globalProviderConfig: {
-      dev: import.meta.env.DEV,
-    },
-  });
+    /*
+    * Connect2ic provides essential utilities for IC app development
+    */
+    import { createClient } from "@connect2ic/core"
+    import { defaultProviders } from "@connect2ic/core/providers"
+    import { ConnectButton, ConnectDialog, Connect2ICProvider } from "@connect2ic/svelte"
+    import Wall from "./components/Wall.svelte";
+    import "@connect2ic/core/style.css";
+    import SideButton from "./components/SideButton.svelte";
+    /*
+    * Import canister definitions like this:
+    */
+    import * as studentwall from "../.dfx/local/canisters/studentwall"
+    import * as wallcoin from "../.dfx/local/canisters/wallcoin"
+ 
 
-</script>
+    const client = createClient({
+        canisters: {
+            studentwall,
+            wallcoin
+        },
+        providers: defaultProviders,
+        globalProviderConfig: {
+            dev: import.meta.env.DEV,
+        },
+    });
 
-<Connect2ICProvider client={client}>
-  <div class="App">
-    <Wall />
-    <div class="auth-section">
+
+    </script>
+
+    <Connect2ICProvider client={client}>
+    <div class="App">
+        <Wall />
+        <div class="auth-section">
+            <SideButton />
+            <ConnectButton />
+        </div>
         
-  <TipMe />
-      <ConnectButton />
-    </div>
-    <ConnectDialog />
-     
-    
-</Connect2ICProvider>
+        <ConnectDialog />
+    </div>    
 
-<style global>
+    </Connect2ICProvider>
+
+    <style global>
     body {
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -140,4 +140,4 @@
             opacity: 0;
         }
     }
-</style>
+    </style>

@@ -8,7 +8,7 @@
   const dispatch = createEventDispatcher();
   
     function refreshCallback() {
-        dispatch("customEvent");
+        dispatch("callback");
     }
 
     const [studentwall] = useCanister("studentwall");

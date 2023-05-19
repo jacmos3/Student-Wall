@@ -1,0 +1,23 @@
+type Subaccount = blob;
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type Account = 
+ record {
+   owner: principal;
+   subaccount: opt Subaccount;
+ };
+service : {
+  balanceOf: (text) -> (nat) query;
+  claimAirdrop: () -> (Result);
+  claimAirdropFor: (principal) -> (Result);
+  myBalance: () -> (nat);
+  name: () -> (text) query;
+  symbol: () -> (text) query;
+  totalSupply: () -> (nat) query;
+  transfer: (Account, Account, nat) -> (Result);
+  whoAmI: () -> (text);
+  whoClaimed: () -> (vec principal) query;
+}

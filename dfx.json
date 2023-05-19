@@ -1,12 +1,17 @@
 {
   "canisters": {
     "studentwall": {
-      "main": "canisters/studentwall/main.mo",
+      "main": "canisters/studentwall/studentwall.mo",
+      "type": "motoko"
+    },
+    "wallcoin": {
+      "main": "canisters/wallcoin/wallcoin.mo",
       "type": "motoko"
     },
     "assets": {
       "dependencies": [
-        "studentwall"
+        "studentwall",
+        "wallcoin"
       ],
       "frontend": {
         "entrypoint": "dist/index.html"
