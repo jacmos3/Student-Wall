@@ -131,7 +131,7 @@
         {/if}
         <div class = "post-meta">
             Likes: {vote}
-            <button  on:click={upVote(id)}>
+            <button on:click={upVote(id)}>
                 <Fa icon={faThumbsUp}/>
             </button>
             <button  on:click={downVote(id)}>

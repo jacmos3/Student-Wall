@@ -63,15 +63,15 @@ actor WallCoin {
     public shared func transfer(from: Account.Account, to : Account.Account, amount : Nat) : async Result.Result<(), Text>{
         let senderBalance = _balanceOf(from);
         if (senderBalance < amount){
-            return #err("not enough tokens");
+            return #err("not enough WALL tokens");
         }
         else{
-            let receiverBalance = _balanceOf(to);
             let oldSValue = ledger.replace(from, senderBalance - amount);
             if (oldSValue == null){
                 return #err("error occurred");
             };
-
+            
+            let receiverBalance = _balanceOf(to);
             let oldRValue = ledger.replace(to, receiverBalance + amount);
             if (oldRValue == null){
                 ledger.put(to, receiverBalance + amount);

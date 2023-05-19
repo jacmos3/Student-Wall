@@ -14,8 +14,13 @@ import Account "../wallcoin/account";
 import Types "Types";
 
 actor StudentWall {
+
+    //TODO CHANGE
     let IS_DEV = true;
-    let WALLCOIN_CANISTER_ID = if (IS_DEV) "br5f7-7uaaa-aaaaa-qaaca-cai" else "";
+    //TODO CHANGE VALUES
+    let DAO_CANISTER = "be2us-64aaa-aaaaa-qaabq-cai";
+    //TODO CHANGE VALUES
+    let WALLCOIN_CANISTER_ID = if (IS_DEV) "be2us-64aaa-aaaaa-qaabq-cai" else "be2us-64aaa-aaaaa-qaabq-cai";
     
     func hashId(id : Nat) : Hash.Hash {
         Text.hash(Nat.toText(id));
@@ -25,8 +30,7 @@ actor StudentWall {
     let wall = HashMap.HashMap<Nat,Types.Message>(0, Nat.equal, hashId);
     let handles = HashMap.HashMap<Principal, Text>(0,Principal.equal, Principal.hash);
     let principals = HashMap.HashMap<Text, Principal>(0,Text.equal, Text.hash);
-    
-    var logs : Text = "";
+    let daoPrincipal = Principal.fromText(DAO_CANISTER);
 
     let wallCoinCanister = actor (WALLCOIN_CANISTER_ID) : actor {
         claimAirdropFor : shared (principal: Principal) -> async Result.Result<(), Text>;
@@ -93,7 +97,7 @@ actor StudentWall {
         
         switch (m){
             case (null){
-                return #err("messageId not valid");
+                return #err("messageId NOT valid");
             };
             case (? something){
                 return #ok(something);
@@ -189,18 +193,56 @@ actor StudentWall {
         return #err("messageId not correct");
     };
 
-    public shared func upVote (messageId  : Nat) : async Result.Result<(), Text>{
-        let result =  _voting(messageId, 1);
+     public shared ({caller}) func upVote (messageId  : Nat) : async Result.Result<(), Text>{
+        var result =  _voting(messageId, 1);
+        var rollback: Bool = false;
         if (Result.isOk(result)){
-            return #ok();
+            let from = Account.createAccount(caller, null);
+            let m = wall.get(messageId);
+            switch (m){
+                case(null){
+                    rollback := true;
+                };
+                case(? something){
+                    var to = Account.createAccount(Principal.fromText(DAO_CANISTER), null);
+                    result := await wallCoinCanister.transfer(from, to, 1);
+                    if (Result.isOk(result)){
+                        //I return ok even if this breaks
+                        to := Account.createAccount(something.creator, null);
+                        ignore await wallCoinCanister.transfer(from, to, 1);
+                        return #ok;
+                    }
+                    else{
+                        rollback := true;
+                    };
+                }
+            }
+            
         };
+
+        if (rollback){
+            //rollback
+            ignore _voting(messageId, -1);
+            return result;
+        };
+
         return #err("cannot upVote");
     };
 
-    public shared func downVote (messageId  : Nat) : async Result.Result<(), Text>{
-        let result = _voting(messageId, -1);
+    public shared ({caller}) func downVote (messageId  : Nat) : async Result.Result<(), Text>{
+        let result =  _voting(messageId, -1);
         if (Result.isOk(result)){
-            return #ok();
+            let from = Account.createAccount(caller, null);
+            let to = Account.createAccount(daoPrincipal, null);
+            var res = await wallCoinCanister.transfer(from, to, 1);
+            if (Result.isOk(res)){
+                return res;
+            }
+            else{
+                //rollback
+                ignore _voting(messageId, 1);
+                return res;
+            };
         };
         return #err("cannot downVote");
     };
@@ -220,8 +262,4 @@ actor StudentWall {
         var sorted = Array.sort(postArray, isGreaterVote);
         return sorted;
     };
-
-    private func getLogs(): Text{
-        return logs;
-    }
 };

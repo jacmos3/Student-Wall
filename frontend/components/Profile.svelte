@@ -1,7 +1,7 @@
 <script>
   import { useWallet, useBalance } from "@connect2ic/svelte";
   import Fa from 'svelte-fa/src/fa.svelte';
-  import { faRotateRight, faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+  import { faPaperPlane, faPenToSquare} from '@fortawesome/free-solid-svg-icons';
   import { useCanister } from "@connect2ic/svelte";
   import {onMount} from "svelte";
 
@@ -44,6 +44,7 @@
       alert("Handle correctly created");
     }
     else{
+      alert("ERROR: " + result.err);
       console.log("error happened");
     }
     
@@ -59,10 +60,12 @@
   {#if $wallet}
     <p>{myHandle}</p>
     {#if editing && myHandle.length ==  0 }
-        <input type="text" bind:value = {newHandle} placeholder = "@yourhandle" />
-        <button disabled= {!newHandle} on:click = {setHandle} >
-            <Fa icon={faRotateRight} />
-        </button>
+      <div class="container">
+          <input type="text" bind:value = {newHandle} placeholder = "@yourhandle" />
+          <button disabled= {!newHandle} on:click = {setHandle} >
+              <Fa icon={faPaperPlane} />
+          </button>
+      </div>
     {:else}
         <div >
           
@@ -78,11 +81,12 @@
       </button>
   </div>
   {/if}
-    <p>Wallet address: <span style="font-size: 0.7em">{$wallet.principal}</span></p>
+    
     <table>
-      <tbody>
       {#if $assets}
-      <tr>
+      <p>Your wallet: {$wallet.principal}</p>
+      <tbody>
+      <tr class="bold">
         <td>
           WALL
         </td>
@@ -100,10 +104,25 @@
             </td>
           </tr>
         {/each}
-      {/if}
       </tbody>
+      {/if}
     </table>
   {:else}
   <div></div>
   {/if}
 </div>
+
+<style>
+	.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+	.container input {
+		margin-right: 2px;
+	}
+  .bold td{
+    font-weight: 900;
+  }
+</style>
