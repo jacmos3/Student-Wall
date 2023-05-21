@@ -3,7 +3,7 @@
 ## Known issues
 
 As per this open issue, https://github.com/MioQuispe/create-ic-app/issues/24, the lib connect2ic/svelte is causing the dapp not working on IC, so it is only possible to test it in local. But a fix is work in progress.
-Meanwhile, follows the steps to try it in local while the fix is coming..
+Meanwhile, follows the steps to run it in local while the fix is coming..
 
 ## Initial configuration
 
@@ -33,7 +33,7 @@ StudentWall allows users to get access to a shared wall containing a list of use
 Users can connect as guest or using their preferred wallet.
 Connecting as guest they have limited options; guests can only view all the messages already sent and post a new message as anonymous user.
 
-Logged users can write a message into the wall, but they can also upvote or downvote other users posts.
+Logged users (NOTE: please connect with plug wallet as per now), can write a message into the wall, but they can also upvote or downvote other users posts.
 They cannot vote their own posts, but they can edit or delete them instead.
 If the edit, an “**edit” message will appear near the post to let everybody knows that was not an original version.
 
