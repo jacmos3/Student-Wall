@@ -27,8 +27,12 @@ npm version: 8.19.4
 
 ```$ npm run dev```
 
-## Features:
+## Intention:
+This dapp is meant to allow Motoko Bootcamp Students to write down their vents during the development of their final projects or day challenges. 
+Every student needs to free his/her frustration when encountering an error. This is the right place to do so while developing, to let other students know you are venting much more than them!
+Creative students could receive upvotes or tips, so they can gain WALL tokens (usage TBD)
 
+## Features
 StudentWall allows users to get access to a shared wall containing a list of users vents.
 Users can connect as guest or using their preferred wallet.
 Connecting as guest they have limited options; guests can only view all the messages already sent and post a new message as anonymous user.
@@ -61,5 +65,8 @@ A DAO,
 Improve UI,
 Add profile,
 Allow pictures upload,
-Allow nested posts
-Allow images in posts
+Allow nested posts,
+Allow images in posts,
+Improve tokenomics avoiding SPAM opportunities (by adding a WALL cost to post and removing write access to guests),
+Adding administration section where admin of the Motoko Bootcamp could start a new sprint session with clean wall,
+Add principals whitelist allowing login to only motoko students
