@@ -14,13 +14,14 @@ import Account "../wallcoin/account";
 import Types "Types";
 
 actor StudentWall {
-
-    //TODO CHANGE
+    
     let IS_DEV = true;
-    //TODO CHANGE VALUES
-    let DAO_CANISTER = if (IS_DEV) "be2us-64aaa-aaaaa-qaabq-cai" else "ojsrx-iyaaa-aaaao-ajpaa-cai";
-    //TODO CHANGE VALUES
-    let WALLCOIN_CANISTER_ID = if (IS_DEV) "be2us-64aaa-aaaaa-qaabq-cai" else "ojsrx-iyaaa-aaaao-ajpaa-cai";
+    
+    let WALLCOIN_DEV = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+    let WALLCOIN_IC = "ojsrx-iyaaa-aaaao-ajpaa-cai";
+
+    let WALLCOIN_CANISTER_ID = if (IS_DEV) WALLCOIN_DEV else WALLCOIN_IC;
+    let DAO_CANISTER = if (IS_DEV) WALLCOIN_DEV else WALLCOIN_IC; //TODO. DAO CANISTER NEEDS TO BE DEVELOPED YET
     
     func hashId(id : Nat) : Hash.Hash {
         Text.hash(Nat.toText(id));

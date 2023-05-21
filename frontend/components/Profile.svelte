@@ -56,8 +56,18 @@
         console.log("onEdit: ", newHandle, editing);
     };
 </script>
-<div class="example">
+<div class="box">
   {#if $wallet}
+    {#if !myHandle}
+    
+    <div class="label">
+      Set your handle to claim your first 1000 WALL coins!
+
+      <button on:click={onEdit}>
+          <Fa icon="{faPenToSquare}" />
+      </button>
+    </div>
+  {/if}
     <p>{myHandle}</p>
     {#if editing && myHandle.length ==  0 }
       <div class="container">
@@ -71,20 +81,11 @@
           
         </div>
     {/if}
-    {#if !myHandle}
-  
-      <div class="buttons">
-        Set your handle to claim your first 1000 WALL coins!
 
-        <button on:click={onEdit}>
-            <Fa icon="{faPenToSquare}" />
-        </button>
-      </div>
-    {/if}
     
     <table>
       {#if $assets}
-        <p>Your wallet: {$wallet.principal}</p>
+        <p class= "box-meta">Your wallet: {$wallet.principal}</p>
         <tbody>
           <tr class="bold">
             <td>
@@ -117,12 +118,41 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
   }
 
 	.container input {
 		margin-right: 2px;
+    width: 100%;
 	}
   .bold td{
     font-weight: 900;
   }
+
+  .box {
+        border: 1px solid #62676d22;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px;
+        
+        background-color: #F0FFFF;
+        box-shadow: 0px -10px 50px #1d2025;
+        
+        margin: 30px 20% 60px 20%;
+    }
+
+    .box .label{
+      text-align: center;
+    }
+
+    .box-meta {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0px;
+        margin: 0px;
+        font-size: small;
+        border-top: 1px solid #dce4ec22;
+        padding-bottom: 0px;
+        align-self:end;
+    }
 </style>
